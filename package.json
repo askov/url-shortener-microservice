@@ -1,0 +1,27 @@
+{
+  "name": "url-shortener-microservice",
+  "version": "0.0.1",
+  "description": "FreeCodeCamp URL Shortener Microservice",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.15.4",
+    "base58": "^1.0.1",
+    "mongodb": "^2.2.31"
+  },
+  "engines": {
+    "node": "8.x"
+  },
+  "repository": {
+    "url": "https://github.com/askov/url-shortener-microservice/tree/glitch"
+  },
+  "author": "Aleksandr Askov",
+  "license": "MIT",
+  "keywords": [
+    "node",
+    "glitch",
+    "express"
+  ]
+}
