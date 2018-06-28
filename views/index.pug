@@ -1,0 +1,33 @@
+doctype html
+html(lang="en")
+  head
+    title Freecodecamp API project: URL Shortener Microservice
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    meta(http-equiv="X-UA-Compatible" content="ie=edge")
+    meta(name="theme-color" content="#1e5180")
+    meta(name="msapplication-navbutton-color" content="#1e5180")
+    meta(name="apple-mobile-web-app-status-bar-style" content="#1e5180")
+    link(rel="stylesheet", href="/css/normalize.css")
+    link(rel="stylesheet", href="/css/style.css")
+    link(rel="stylesheet", href="https://fonts.googleapis.com/css?family=Ubuntu")
+  body
+    header
+      h1 Freecodecamp API project: URL Shortener Microservice
+    .page-content
+      h2 User stories:
+      ol.user-stories
+        li I can POST a URL to <code>[project_url]/api/shorturl/new</code> and I will receive a shortened URL in the JSON response. Example : <code>{"original_url":"www.google.com","short_url":1}</code>
+        li If I pass an invalid URL that doesn't follow the <code>http(s)://www.example.com(/more/routes)</code> format, the JSON response will contain an error like <code>{"error":"invalid URL"}</code> HINT: to be sure that the submitted url points to a valid site you can use the function <code>dns.lookup(host, cb)</code> from the dns core module.
+        li When I visit the shortened URL, it will redirect me to my original link.
+      h2 Example usage:
+      ul.examples
+        each href in examples
+          li #[a(href=href) #{href}]
+      h2 Example output:
+      ul.examples
+        li todo
+      h2 Github
+      a(href="https://github.com/askov/url-shortener-microservice") https://github.com/askov/url-shortener-microservice
+    footer
+      | by #[a(href="https://www.freecodecamp.org/aleks-askov") Alex Askov]

@@ -1,0 +1,30 @@
+{
+  "name": "url-shortener-microservice",
+  "version": "1.0.0",
+  "description": "Freecodecamp API project: URL Shortener Microservice",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon ./server.js localhost 3000",
+    "test": "mocha --timeout 10000",
+    "coverage": "istanbul cover node_modules/mocha/bin/_mocha test/index.js"
+  },
+  "author": "Aleksandr Askov",
+  "keywords": [
+    "freecodecamp",
+    "api projects",
+    "url shortener microservice"
+  ],
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3",
+    "dotenv": "^6.0.0",
+    "pug": "^2.0.3"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
+    "chai-json-schema": "^1.5.0",
+    "mocha": "^5.2.0",
+    "nodemon": "^1.17.5"
+  }
+}
