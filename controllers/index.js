@@ -1,20 +1,16 @@
 const express = require('express'),
   router = express.Router();
 
-router.use('/api/whoami', (req, res) => {
-  const ipaddress = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-  const language = req.headers['accept-language'];
-  const software = req.headers['user-agent'];
+router.post('/api/shorturl/new', (req, res) => {
   res.json({
-    ipaddress: ipaddress,
-    language: language,
-    software: software
+    original_url: 'google.com',
+    short_url: '1',
   });
 });
 
-router.use('/', (req, res) => {
+router.get('/', (req, res) => {
   const examples = [
-    `${process.env.HOST}/api/whoami`,
+    `${process.env.HOST}/api/shorturl/url`,
   ];
   res.render('index', {
     examples

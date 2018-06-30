@@ -20,27 +20,23 @@ describe('/GET /', () => {
   });
 });
 
-describe('/GET /api/api/whoami', () => {
+describe('/POST /api/shorturl/new', () => {
   let resSuccessSchema = {
     type: 'object',
-    required: ['ipaddress', 'language', 'software'],
+    required: ['original_url', 'short_url'],
     properties: {
-      ipaddress: {
+      original_url: {
         type: 'string'
       },
-      language: {
+      short_url: {
         type: 'string'
-      },
-      software: {
-        type: 'string'
-      },
+      }
     }
   };
 
-  it('/GET whoami schema', done => {
+  it('/POST new url: res schema', done => {
     chai.request(server)
-      .get('/api/whoami')
-      .set('accept-language', 'en-US,en;q=0.5')
+      .post('/api/shorturl/new')
       .end((err, res) => {
         expect(err).to.be.null;
         expect(res).to.have.status(200);
