@@ -1,11 +1,36 @@
 const express = require('express'),
-  router = express.Router();
+  router = express.Router(),
+  dns = require('dns'),
+  shortUrl = require('../models/shortUrl');
+
 
 router.post('/api/shorturl/new', (req, res) => {
-  res.json({
-    original_url: 'google.com',
-    short_url: '1',
-  });
+  const errRes = {
+    error: 'invalid URL'
+  };
+  if (/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/.test(req.body.url)) {
+    dns.lookup(req.body.url, (err, address, family) => {
+      if (err) {
+        res.json(errRes);
+      } else {
+        const cb = (err, data) => {
+          if (err) {
+            res.json(errRes);
+          } else {
+            res.json({
+              original_url: req.body.url,
+              short_url: data,
+            });
+          }
+        };
+        shortUrl.save(req.body.url, cb);
+      }
+    });
+  } else {
+    res.json(errRes);
+  }
+
+
 });
 
 router.get('/', (req, res) => {
