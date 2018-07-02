@@ -1,9 +1,6 @@
-const mongoose = require('mongoose');
-const db = require('../db');
-
-var base64 = require('base-64');
-
-const counterUrl = require('./counterUrl');
+const mongoose = require('mongoose'),
+  base64 = require('base-64'),
+  counterUrl = require('./counterUrl');
 
 const shortUrlSchema = mongoose.Schema({
   url: String,
@@ -61,7 +58,15 @@ module.exports.find = function(shortUrl, cb) {
   }, function(err, data) {
     if (err) return cb(err);
     if (!data) return cb(new Error('Not found'))
-    // console.log('DATA', data);
+    cb(null, data);
+  });
+};
+
+module.exports.last = function(cb) {
+  ShortUrl.find({}).sort({
+    shortUrl: -1
+  }).limit(3).exec(function(err, data) {
+    if (err) return cb(err);
     cb(null, data);
   });
 };

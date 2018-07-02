@@ -1,14 +1,14 @@
 const express = require('express'),
   router = express.Router(),
   dns = require('dns'),
-  shortUrl = require('../models/shortUrl');
+  shortUrl = require('../models/shortUrl'),
+  base64 = require('base-64');
 
 
 router.post('/api/shorturl/new', (req, res) => {
   const errRes = {
     error: 'invalid URL'
   };
-  console.log('URL', req.body.url);
   if (/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/.test(req.body.url)) {
     dns.lookup(req.body.url, (err, address, family) => {
       if (err) {
@@ -21,7 +21,7 @@ router.post('/api/shorturl/new', (req, res) => {
           } else {
             res.json({
               original_url: req.body.url,
-              short_url: data,
+              short_url: base64.encode(data.shortUrl),
             });
           }
         };
@@ -29,12 +29,8 @@ router.post('/api/shorturl/new', (req, res) => {
       }
     });
   } else {
-    console.log('ERRR');
-
     res.json(errRes);
   }
-
-
 });
 
 router.get('/api/shorturl/:url', (req, res) => {
@@ -49,18 +45,19 @@ router.get('/api/shorturl/:url', (req, res) => {
       res.status(301).redirect('https://' + url);
     }
   };
-  console.log('REQ PARAMS', req.params.url);
   shortUrl.find(req.params.url, cb)
-
 });
 
 router.get('/', (req, res) => {
-  const examples = [
-    `${process.env.HOST}/api/shorturl/url`,
-  ];
-  res.render('index', {
-    examples
-  });
+  const cb = (err, data) => {
+    const last = data || [];
+    const examples = last.map(el => `${process.env.HOST}/api/shorturl/${base64.encode(el.shortUrl)}`);
+    res.render('index', {
+      examples,
+      examplesQty: examples.length
+    });
+  };
+  shortUrl.last(cb);
 });
 
 
