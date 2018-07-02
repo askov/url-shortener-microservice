@@ -1,35 +1,67 @@
 const mongoose = require('mongoose');
 const db = require('../db');
 
+var base64 = require('base-64');
+
 const counterUrl = require('./counterUrl');
+
 const shortUrlSchema = mongoose.Schema({
-  url: String
+  url: String,
+  shortUrl: Number
 });
 
 const ShortUrl = mongoose.model('ShortUrl', shortUrlSchema);
 
-module.exports.save = function(url, cb) {
-  // const shortUrl = new ShortUrl({
-  //   url
-  // });
-  const conditions = {},
+shortUrlSchema.pre('save', function(next) {
+  const doc = this;
+  const query = {},
     update = {
-      url: url,
-      // $inc: {
-      //   urlcounter: 1
-      // }
+      $inc: {
+        urls: 1
+      }
     },
     opts = {
       upsert: true,
       new: true,
       setDefaultsOnInsert: true
     };
-  ShortUrl.findOneAndUpdate(conditions, update, opts, function(err, data) {
+  counterUrl.findOneAndUpdate(query, update, opts, function(err, data) {
+    if (err) return next(err);
+    doc.shortUrl = data.urls;
+    next();
+  });
+});
+
+
+module.exports.save = function(url, cb) {
+  ShortUrl.findOne({
+    url
+  }, function(err, data) {
     if (err) return cb(err);
+    if (data) return cb(null, data);
+    const shortUrl = new ShortUrl({
+      url
+    });
+    shortUrl.save(function(err, data) {
+      if (err) return cb(err);
+      cb(null, data);
+    });
+  });
+};
+
+module.exports.find = function(shortUrl, cb) {
+  let decoded;
+  try {
+    decoded = base64.decode(shortUrl);
+  } catch (err) {
+    return cb(err);
+  }
+  ShortUrl.findOne({
+    shortUrl: decoded
+  }, function(err, data) {
+    if (err) return cb(err);
+    if (!data) return cb(new Error('Not found'))
+    // console.log('DATA', data);
     cb(null, data);
   });
-  // shortUrl.save(function(err, data) {
-  //   if (err) return cb(err);
-  //   cb(null, data);
-  // });
 };

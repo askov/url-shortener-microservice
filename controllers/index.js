@@ -8,9 +8,11 @@ router.post('/api/shorturl/new', (req, res) => {
   const errRes = {
     error: 'invalid URL'
   };
+  console.log('URL', req.body.url);
   if (/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/.test(req.body.url)) {
     dns.lookup(req.body.url, (err, address, family) => {
       if (err) {
+
         res.json(errRes);
       } else {
         const cb = (err, data) => {
@@ -27,9 +29,28 @@ router.post('/api/shorturl/new', (req, res) => {
       }
     });
   } else {
+    console.log('ERRR');
+
     res.json(errRes);
   }
 
+
+});
+
+router.get('/api/shorturl/:url', (req, res) => {
+  const cb = (err, data) => {
+    if (err) {
+      res.status(301).redirect('/');
+    } else {
+      let url = data.url;
+      if (/^https?:\/\//.test(data.url)) {
+        url = 'http://' + url;
+      }
+      res.status(301).redirect('https://' + url);
+    }
+  };
+  console.log('REQ PARAMS', req.params.url);
+  shortUrl.find(req.params.url, cb)
 
 });
 

@@ -13,6 +13,7 @@ app.set('views', './views');
 app.set('view engine', 'pug');
 app.use(express.static('public'));
 app.use(bodyParser.json());
+
 app.use(require('./controllers'));
 
 const server = app.listen(config.port, function() {
