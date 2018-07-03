@@ -7,6 +7,7 @@ const counterUrlSchema = mongoose.Schema({
   },
   urls: {
     type: Number,
+    required: true,
     default: 0
   }
 });

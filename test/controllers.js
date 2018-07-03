@@ -20,31 +20,28 @@ describe('/GET /', () => {
   });
 });
 
-describe('/POST /api/shorturl/new', () => {
-  let resSuccessSchema = {
-    type: 'object',
-    required: ['original_url', 'short_url'],
-    properties: {
-      original_url: {
-        type: 'string'
-      },
-      short_url: {
-        type: 'string'
-      }
-    }
-  };
+// describe('/POST /api/shorturl/new', () => {
+//   let resSuccessSchema = {
+//     type: 'object',
+//     required: ['original_url', 'short_url'],
+//     properties: {
+//       original_url: {
+//         type: 'string'
+//       },
+//       short_url: {
+//         type: 'string'
+//       }
+//     }
+//   };
 
-  it('/POST new url: res schema', done => {
-    chai.request(server)
-      .post('/api/shorturl/new')
-      .end((err, res) => {
-        expect(err).to.be.null;
-        expect(res).to.have.status(200);
-        expect(res.body).to.be.jsonSchema(resSuccessSchema);
-        done();
-      });
-  });
-
-
-
-});
+//   it('/POST new url: res schema', done => {
+//     chai.request(server)
+//       .post('/api/shorturl/new')
+//       .end((err, res) => {
+//         expect(err).to.be.null;
+//         expect(res).to.have.status(200);
+//         expect(res.body).to.be.jsonSchema(resSuccessSchema);
+//         done();
+//       });
+//   });
+// });

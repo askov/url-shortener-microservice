@@ -3,8 +3,13 @@ const mongoose = require('mongoose'),
   counterUrl = require('./counterUrl');
 
 const shortUrlSchema = mongoose.Schema({
-  url: String,
-  shortUrl: Number
+  url: {
+    type: String,
+    required: true
+  },
+  shortUrl: {
+    type: Number,
+  }
 });
 
 const ShortUrl = mongoose.model('ShortUrl', shortUrlSchema);
@@ -29,6 +34,7 @@ shortUrlSchema.pre('save', function(next) {
   });
 });
 
+module.exports.model = ShortUrl;
 
 module.exports.save = function(url, cb) {
   ShortUrl.findOne({
