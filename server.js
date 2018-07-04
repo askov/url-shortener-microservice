@@ -1,8 +1,9 @@
 'use strict';
 
-require('dotenv').config();
+// require('dotenv').config();
 
-require('./db');
+const dbsetup = require('./db');
+dbsetup.connect();
 
 const express = require('express'),
   app = express(),

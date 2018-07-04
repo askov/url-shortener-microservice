@@ -1,4 +1,5 @@
-require('./controllers');
+// require('./controllers');
+
 require('./models/counterUrl');
 require('./models/shortUrl');
 
