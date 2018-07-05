@@ -4,14 +4,14 @@ const su = require('../../models/shortUrl'),
   dbsetup = require('../../db');
 
 describe('Model: ShortUrl', function() {
-  it('should be invalid if empty', function(done) {
-    const x = new su.model();
+  it('should not pass validation when created with null', function(done) {
+    const x = new su.model(null);
     x.validate(function(err) {
       expect(err.errors).to.exist;
       done();
     });
   });
-  it('should be correct with url String and shortUrl Number', function(done) {
+  it('should pass validation when created with correct object', function(done) {
     const x = new su.model({
       url: 'google.com',
       shortUrl: 42
@@ -52,7 +52,7 @@ describe('Model: ShortUrl', function() {
       };
       su.find(shorturl, cb);
     })
-    it('find should throw error when shortulr is not base64 encoded ', function(done) {
+    it('should throw error when shortulr is not base64 encoded ', function(done) {
       const shorturl = 'qwe!1';
       const cb = (err, data) => {
         expect(err).not.to.be.null;
@@ -60,7 +60,7 @@ describe('Model: ShortUrl', function() {
       };
       su.find(shorturl, cb);
     })
-    it('find should throw error with wrong shortulr', function(done) {
+    it('should throw error with wrong shortulr', function(done) {
       const shorturl = 'qwe';
       const cb = (err, data) => {
         expect(err).not.to.be.null;
@@ -68,7 +68,7 @@ describe('Model: ShortUrl', function() {
       };
       su.find(shorturl, cb);
     })
-    it('find should throw error if url not found', function(done) {
+    it('should throw error if url not found', function(done) {
       const shorturl = 'OTk5OTk5OTk5';
       const cb = (err, data) => {
         expect(err).not.to.be.null;
@@ -76,7 +76,7 @@ describe('Model: ShortUrl', function() {
       };
       su.find(shorturl, cb);
     })
-    it('last should return', function(done) {
+    it('should return last shortened urls', function(done) {
       const cb = (err, data) => {
         expect(err).to.be.null;
         done();

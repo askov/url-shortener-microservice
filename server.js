@@ -1,7 +1,5 @@
 'use strict';
 
-// require('dotenv').config();
-
 const dbsetup = require('./db');
 dbsetup.connect();
 

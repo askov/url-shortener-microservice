@@ -5,8 +5,8 @@
   "main": "server.js",
   "scripts": {
     "dev": "nodemon ./server.js localhost 3000",
-    "test": "mocha --timeout 10000",
-    "coverage": "istanbul cover node_modules/mocha/bin/_mocha test/index.js"
+    "test": "mocha --timeout 10000 --require mocha.env.js",
+    "coverage": "istanbul cover node_modules/mocha/bin/_mocha --timeout 10000 --require mocha.env.js test/index.js"
   },
   "author": "Aleksandr Askov",
   "keywords": [

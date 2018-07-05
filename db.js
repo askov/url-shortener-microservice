@@ -4,14 +4,15 @@ require('dotenv').config();
 
 const mongoose = require('mongoose');
 
-const dbUri = process.env.DB_URL;
+const dbUri = process.env.DB_TEST_URL || process.env.DB_URL;
 
+console.log('SOME IS', process.env.DB_TEST_URL, dbUri);
 (function initMongoose() {
   /* eslint-disable no-console */
 
   // Settings
   mongoose.Promise = Promise;
-  mongoose.set('debug', true);
+  mongoose.set('debug', false);
   // Events
   mongoose.connection.on('connected', () => {
     console.log(`Mongoose connection opened at: ${dbUri}`);

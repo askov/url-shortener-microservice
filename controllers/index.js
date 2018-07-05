@@ -36,13 +36,13 @@ router.post('/api/shorturl/new', parseUrl, lookupUrl, (req, res) => {
 router.get('/api/shorturl/:url', (req, res) => {
   const cb = (err, data) => {
     if (err) {
-      return res.status(301).redirect('/');
+      return res.redirect('/');
     }
     let url = data.url;
-    if (/^https?:\/\//.test(data.url)) {
+    if (!/^https?:\/\//.test(data.url)) {
       url = 'https://' + url;
     }
-    res.status(301).redirect(url);
+    res.status.redirect(url);
   };
   shortUrl.find(req.params.url, cb)
 });

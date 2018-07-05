@@ -3,14 +3,14 @@ const CounterUrl = require('../../models/counterUrl'),
   expect = chai.expect;
 
 describe('Model: CounterUrl', function() {
-  it('should be invalid if empty', function(done) {
-    const x = new CounterUrl();
+  it('should not pass validation when created with null', function(done) {
+    const x = new CounterUrl(null);
     x.validate(function(err) {
       expect(err.errors).to.exist;
       done();
     });
   });
-  it('should be correct with _id String and urls Number', function(done) {
+  it('should pass validation when created with correct object', function(done) {
     const x = new CounterUrl({
       _id: '42',
       urls: 1
