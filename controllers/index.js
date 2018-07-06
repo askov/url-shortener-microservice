@@ -42,7 +42,7 @@ router.get('/api/shorturl/:url', (req, res) => {
     if (!/^https?:\/\//.test(data.url)) {
       url = 'https://' + url;
     }
-    res.status.redirect(url);
+    res.redirect(url);
   };
   shortUrl.find(req.params.url, cb)
 });

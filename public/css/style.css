@@ -45,3 +45,45 @@ a[href*=github] {
   background-size: 36px;
   background-position: left 1em center;
 }
+
+.new-url-form {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  padding-bottom: 2em;
+}
+
+.new-url-form input[type="text"] {
+  background-color: #fafafa;
+  border: 1px solid #969696;
+  padding: 0.5em 1em;
+}
+
+.new-url-form button[type="submit"] {
+  cursor: pointer;
+  /* background-color: red; */
+  border: 1px solid #969696;
+  border-left: none;
+  padding: 0.5em 1em;
+}
+
+.new-url-form button[type="submit"]:hover {
+  background-color: #969696;
+  color: white;
+}
+
+.error-container {
+  text-align: center;
+  width: 100%;
+  height: 2em;
+  line-height: 2em;
+  color: #cc0000;
+  position: absolute;
+  bottom: 0;
+}
+
+.input-error {
+  border-color: #cc0000 !important;
+  box-shadow: 0 0 3px #cc0000;
+  outline: none;
+}
