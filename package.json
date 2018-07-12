@@ -15,6 +15,9 @@
     "api projects",
     "url shortener microservice"
   ],
+  "repository": {
+    "url": "https://github.com/askov/url-shortener-microservice"
+  },
   "license": "ISC",
   "dependencies": {
     "base-64": "^0.1.0",

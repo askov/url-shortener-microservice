@@ -21,8 +21,8 @@ html(lang="en")
         li If I pass an invalid URL that doesn't follow the <code>http(s)://www.example.com(/more/routes)</code> format, the JSON response will contain an error like <code>{"error":"invalid URL"}</code> HINT: to be sure that the submitted url points to a valid site you can use the function <code>dns.lookup(host, cb)</code> from the dns core module.
         li When I visit the shortened URL, it will redirect me to my original link.
       h2 Create new url
-      form(method="post" action="/api/shorturl/new" onsubmit="return validateForm()").new-url-form
-        input(type="text" placeholder="URL" name="url")
+      form(method="post" action="/api/shorturl/new" onsubmit="return urlForm.validate()").new-url-form
+        input(type="text" placeholder="URL" name="url" autocomplete="off")
         button(type="submit") Create
         .error-container
       h2 Last shortened urls (#{examplesQty}):

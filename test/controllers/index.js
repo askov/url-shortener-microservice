@@ -7,7 +7,7 @@ chai.use(require('chai-json-schema'));
 
 describe('Controllers: Integration tests (db required)', () => {
   let server;
-  before(function(done) {
+  before(function (done) {
     server = require('../../server');
     done();
   });
@@ -78,7 +78,7 @@ describe('Controllers: Integration tests (db required)', () => {
         done();
       });
   });
-  after(function(done) {
+  after(function (done) {
     const cb = () => {
       dbsetup.disconnect(done);
     };
