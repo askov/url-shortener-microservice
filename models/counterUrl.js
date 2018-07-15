@@ -1,6 +1,7 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose'),
+  Schema = mongoose.Schema;
 
-const counterUrlSchema = mongoose.Schema({
+const counterUrlSchema = new Schema({
   _id: {
     type: String,
     required: true

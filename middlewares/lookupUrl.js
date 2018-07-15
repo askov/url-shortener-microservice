@@ -7,7 +7,7 @@ function lookupUrl(req, res, next) {
   if (!req.correctUrl) {
     return next();
   }
-  dns.lookup(req.body.url, (err, address, family) => {
+  dns.lookup(req.body.url, (err) => {
     if (err) {
       req.correctUrl = false;
       return next();

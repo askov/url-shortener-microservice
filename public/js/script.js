@@ -65,7 +65,7 @@ var FormInput = function (field) {
   this.validator = field.validator;
   this.errClass = 'input-error';
 };
-FormInput.prototype.setErrorClass = function (err) {
+FormInput.prototype.setErrorClass = function () {
   const tmp = this.el.className.split(' ');
   if (tmp.indexOf(this.errClass) === -1) {
     tmp.push(this.errClass);

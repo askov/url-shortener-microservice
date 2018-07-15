@@ -44,7 +44,7 @@ router.get('/api/shorturl/:url', (req, res) => {
     }
     res.redirect(url);
   };
-  shortUrl.find(req.params.url, cb)
+  shortUrl.find(req.params.url, cb);
 });
 
 /**

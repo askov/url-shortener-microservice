@@ -1,8 +1,9 @@
 const mongoose = require('mongoose'),
+  Schema = mongoose.Schema,
   base64 = require('base-64'),
   counterUrl = require('./counterUrl');
 
-const shortUrlSchema = mongoose.Schema({
+const shortUrlSchema = new Schema({
   url: {
     type: String,
     required: true
@@ -14,7 +15,7 @@ const shortUrlSchema = mongoose.Schema({
 
 const ShortUrl = mongoose.model('ShortUrl', shortUrlSchema);
 
-shortUrlSchema.pre('save', function(next) {
+shortUrlSchema.pre('save', function (next) {
   const doc = this;
   const query = {},
     update = {
@@ -27,7 +28,7 @@ shortUrlSchema.pre('save', function(next) {
       new: true,
       setDefaultsOnInsert: true
     };
-  counterUrl.findOneAndUpdate(query, update, opts, function(err, data) {
+  counterUrl.findOneAndUpdate(query, update, opts, function (err, data) {
     if (err) return next(err);
     doc.shortUrl = data.urls;
     next();
@@ -36,23 +37,23 @@ shortUrlSchema.pre('save', function(next) {
 
 module.exports.model = ShortUrl;
 
-module.exports.save = function(url, cb) {
+module.exports.save = function (url, cb) {
   ShortUrl.findOne({
     url
-  }, function(err, data) {
+  }, function (err, data) {
     if (err) return cb(err);
     if (data) return cb(null, data);
     const shortUrl = new ShortUrl({
       url
     });
-    shortUrl.save(function(err, data) {
+    shortUrl.save(function (err, data) {
       if (err) return cb(err);
       cb(null, data);
     });
   });
 };
 
-module.exports.find = function(shortUrl, cb) {
+module.exports.find = function (shortUrl, cb) {
   let decoded;
   try {
     decoded = base64.decode(shortUrl);
@@ -61,17 +62,17 @@ module.exports.find = function(shortUrl, cb) {
   }
   ShortUrl.findOne({
     shortUrl: decoded
-  }, function(err, data) {
+  }, function (err, data) {
     if (err) return cb(err);
     if (!data) return cb(new Error('Not found'))
     cb(null, data);
   });
 };
 
-module.exports.last = function(cb) {
+module.exports.last = function (cb) {
   ShortUrl.find({}).sort({
     shortUrl: -1
-  }).limit(3).exec(function(err, data) {
+  }).limit(3).exec(function (err, data) {
     if (err) return cb(err);
     cb(null, data);
   });
